@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "d92bffa5-cb09-4f63-b27c-a5f49ba7d1ee"
+      }
+    },
+    "android": {
+      "package": "com.vorphix.vitereacttypescriptstarter"
+    }
+  }
+}
