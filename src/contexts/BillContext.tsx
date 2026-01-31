@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
+import { sendBillNotifications, startBillNotificationLoop } from './billNotifications';
+
 
 export interface Bill {
   id: string;
@@ -530,6 +532,19 @@ export const BillProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setHasCompletedOnboarding(false);
     localStorage.clear();
   };
+  // Start notification loop for overdue bills
+useEffect(() => {
+  if (!bills.length) return;
+
+  console.log('Starting bill notification loop...');
+  const interval = startBillNotificationLoop(bills, settings);
+
+  return () => {
+    console.log('Cleaning up bill notification loop...');
+    clearInterval(interval);
+  };
+ }, [bills, settings]);
+ 
 
   return (
     <BillContext.Provider value={{
